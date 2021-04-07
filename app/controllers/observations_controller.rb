@@ -2,6 +2,11 @@ class ObservationsController < ApplicationController
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
 
+  def last
+    @observation = Observation.last
+    render :show
+  end
+
   # GET /observations
   # GET /observations.json
   def index
