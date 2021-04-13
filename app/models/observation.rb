@@ -11,6 +11,6 @@ class Observation < ApplicationRecord
   end
 
   def local_time
-    created_at.in_time_zone("EST").to_formatted_s(:short)
+    created_at.in_time_zone("America/New_York").to_formatted_s(:short)
   end
 end
