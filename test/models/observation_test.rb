@@ -9,6 +9,11 @@ class ObservationTest < ActiveSupport::TestCase
     assert_nil Observation.new(data: "").temperature
   end
 
+  test "temp support numbers ending in 0" do
+    assert_equal 21.2, Observation.new(data: "21.20").temperature
+    assert_equal 0, Observation.new(data: "0").temperature
+  end
+
   test "temp return temp attribute if data is a json structure" do
     struct = JSON.generate(
       {temperature: 11.1}

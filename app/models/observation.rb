@@ -1,7 +1,7 @@
 class Observation < ApplicationRecord
   def temperature
     return nil if data.empty?
-    return data.to_f if data == data.to_f.to_s
+    return data.to_f if Float(data) rescue false
     json = JSON.parse(data)
     if json.dig("temperature").present?
       return json['temperature']
