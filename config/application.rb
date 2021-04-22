@@ -15,5 +15,6 @@ module EricTempData
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.header_secret = ENV['HEADER_SECRET']
   end
 end

@@ -1,6 +1,7 @@
 class ObservationsController < ApplicationController
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
+  before_action :check_secret, if: -> { request.format.json? }
 
   def last
     @observation = Observation.last
@@ -76,5 +77,13 @@ class ObservationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def observation_params
       params.require(:observation).permit(:client_id, :data)
+    end
+
+    def check_secret
+      raise ActionController::InvalidAuthenticityToken unless request.headers['secret'] == secret
+    end
+
+    def secret
+      Rails.application.config.header_secret
     end
 end

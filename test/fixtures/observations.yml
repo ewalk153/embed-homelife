@@ -2,8 +2,8 @@
 
 one:
   client_id: 1
-  data: MyText
+  data: 23.1
 
 two:
   client_id: 1
-  data: MyText
+  data: 11.3
