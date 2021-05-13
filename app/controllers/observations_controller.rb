@@ -4,7 +4,11 @@ class ObservationsController < ApplicationController
   before_action :check_secret, if: -> { request.format.json? && secret.present? }
 
   def last
-    @observation = Observation.last
+    if params[:client_id]
+      @observation = Observation.where(client_id: params[:client_id]).last
+    else
+      @observation = Observation.last
+    end
     render :show
   end
 

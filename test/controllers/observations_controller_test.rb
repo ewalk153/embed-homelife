@@ -23,6 +23,12 @@ class ObservationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to observation_url(Observation.last)
   end
 
+  test "should return last observation" do
+    Observation.create(client_id: 5, data: '{"temperature": 23}')
+    get last_observations_url, as: :json, params: { client_id: 5 }, headers: { secret: 'FOO_SECRET' }
+    assert_response :success
+  end
+
   test "should fail to create with incorrect token" do
     ObservationsController.any_instance.stubs(:secret).returns('WRONG_SECRET')
     assert_raises ActionController::InvalidAuthenticityToken do
